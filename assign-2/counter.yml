@@ -21,7 +21,7 @@ spec:
         - name: NAME
           value: "KHUN"
         - name: MYSQL_DB_HOST
-          value: "mysql"           
+          value: mysql           
         - name: MYSQL_DB_PORT
           value: "3306"            
         - name: MYSQL_DB_NAME

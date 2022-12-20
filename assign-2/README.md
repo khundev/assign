@@ -102,15 +102,18 @@ kubectl port-forward svc/prometheus-kube-prometheus-prometheus -n kubernetes-mon
 
 2. Aassuming it has the capability to connect to database, it includes environment variables to initiate connection with the mysql database
 ```
+      containers:
+      - name: nginx
+        image: nginx:latest
         env:
         - name: NAME
           value: "KHUN"
         - name: MYSQL_DB_HOST
-          value: "mysql"           
+          value: mysql           
         - name: MYSQL_DB_PORT
           value: "3306"            
         - name: MYSQL_DB_NAME
-          value: "master-db"            
+          value: "khundev"            
         - name: MYSQL_DB_USER
           value: "admin"             
         - name: MYSQL_DB_PASSWORD
