@@ -26,7 +26,7 @@ Changes to this code will trigger CI/CD pipeline which will upload the update to
 ## improvements
 1. Custom VPC, internet gateway, NAT gateway would be recommended for flexibility and privacy
 
-2. Multiple private subnets will enable the high availability of server fleet
+2. Multiple private subnets within different AZs will enable the high availability of server fleet
 
 3. NAT gateway is required and provisioned in the infrastructure to enable outbound internet otherwise server fleet will not be communicating with the internet
 
