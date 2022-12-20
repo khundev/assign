@@ -16,10 +16,23 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx
+        image: nginx:latest
         env:
         - name: NAME
           value: "KHUN"
+        - name: MYSQL_DB_HOST
+          value: "mysql"           
+        - name: MYSQL_DB_PORT
+          value: "3306"            
+        - name: MYSQL_DB_NAME
+          value: "master-db"            
+        - name: MYSQL_DB_USER
+          value: "admin"             
+        - name: MYSQL_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secrets
+              key: password
         ports:
         - containerPort: 80
         volumeMounts:

@@ -40,3 +40,36 @@ spec:
         - name: mysql-data
           persistentVolumeClaim:
             claimName: mysql-data-disk
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-initdb-config
+data:
+  init.sql: |
+    CREATE DATABASE IF NOT EXISTS khundev;
+    USE khundev;
+    CREATE TABLE khundev (id INT, name VARCHAR(256), age INT, gender VARCHAR(3), skills VARCHAR(255));
+    INSERT INTO khundev VALUES (2, 'Brian', 29, 'f','sql');
+    INSERT INTO khundev VALUES (3, 'Thomas', 27, 'm','aws');
+    INSERT INTO khundev VALUES (2, 'Louis', 31, 'f','gcp');
+    INSERT INTO khundev VALUES (3, 'Khan', 22, 'm','kubernetes');
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-data-disk
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-secrets
+type: kubernetes.io/basic-auth
+stringData:
+  password: test1234
