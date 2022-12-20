@@ -78,7 +78,7 @@ kubectl apply -f mysql-pvc.yml -f mysql-secret.yml -f mysql-service.yml -f mysql
 ```
 
 ## monitoring - prometheus and grafana
-Run the following command and open localhost:3000 in browser
+Run the following command after counter.sh and open localhost:3000 in browser
 ```
 kubectl port-forward deployment/prometheus-grafana 3000 -n kubernetes-monitoring
 ```
@@ -100,7 +100,26 @@ kubectl port-forward svc/prometheus-kube-prometheus-prometheus -n kubernetes-mon
 ## assumptions
 1. Website code, being lack of logic to connect to the database, will not actually communicate with the mysql database
 
-2. However, by assuming counter deployment has the capability to connect to database, it includes environment variables to initiate connection with the mysql database
+2. Aassuming it has the capability to connect to database, it includes environment variables to initiate connection with the mysql database
+```
+        env:
+        - name: NAME
+          value: "KHUN"
+        - name: MYSQL_DB_HOST
+          value: "mysql"           
+        - name: MYSQL_DB_PORT
+          value: "3306"            
+        - name: MYSQL_DB_NAME
+          value: "master-db"            
+        - name: MYSQL_DB_USER
+          value: "admin"             
+        - name: MYSQL_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secrets
+              key: password
+```
+It will not communicate with the mysql database but able to if the code includes logic
 
 3. This particular deployment is for single-instance MySQL deployment. It means that the deployment cannot be scaled - it works on exactly one Pod
 
