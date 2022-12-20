@@ -45,15 +45,20 @@ Deployment objects are used in this assignment to create mysql containers for on
 
 Production workload would require stateful sets to prevent data loss from pods disruption
 
-Managed database solutons such as AWS RDS or GCP cloud SQL are more approprite for stateful applications as they remove the overhead of managing infrastructure.
+Managed database solutions such as AWS RDS or GCP cloud SQL are more appropriate alternatives for stateful applications as they remove the overhead of managing infrastructure.
 
 Database and tables will be created at the start of the mysql pod initiation
 
 mysql-table.yml includes sql script which will create database and table
 
+No need to run the following command if already run script
+```
+kubectl apply -f mysql-pvc.yml -f mysql-secret.yml -f mysql-service.yml -f mysql-table.yml -f mysql.yml
+```
+
 If need to check databases and tables, run the following ad hoc commands
 
-To enter into the mysql pod to check database and table, replace the pod with one from the setup
+To check database and table, replace the pod with one from the below command
 ``` 
 kubectl get pods
 kubectl exec -it <pod> -- bash
@@ -61,7 +66,7 @@ kubectl exec -it <pod> -- bash
 
 Here inside your pod, enter into the mysql database with your password
 ```
-pod-bash #> mysql -p test1234
+pod-bash#> mysql -p test1234
 ```
 
 Then in the mysql console
@@ -70,11 +75,6 @@ mysql> show databases;
 mysql> use khundev;
 mysql> show tables;
 mysql> select * from khundev;
-```
-
-No need to run the following command if already run script
-```
-kubectl apply -f mysql-pvc.yml -f mysql-secret.yml -f mysql-service.yml -f mysql-table.yml -f mysql.yml
 ```
 
 ## monitoring - prometheus and grafana
